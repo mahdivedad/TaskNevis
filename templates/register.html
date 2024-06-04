@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h1>sign in</h1>
+    {% if fail %}
+    username already exists please choose a diferent one
+    {% endif %}
+    <form action="/register" method="post">
+        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+        <input autocomplete="off" autofocus name="email" placeholder="Email" type="text">
+        <input autocomplete="off" autofocus name="password" placeholder="Password" type="text">
+        <button type="submit">Register</button>
+    </form>
+    
+{% endblock %}
