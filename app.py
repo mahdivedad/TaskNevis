@@ -32,6 +32,11 @@ session = Session()
 
 def validemail(input):
     return bool(re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',input))
+def validuser(input):
+    result = session.query(USER).filter(USER.Username == input)
+    for r in result:
+        return True
+    return False
 
 
 @app.route("/")
@@ -45,7 +50,9 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
         if not validemail(email):
-            return render_template("register.html",unvalidemail=1)
+            return render_template("register.html", invalidemail = True)
+        if validuser(username):
+            return render_template("register.html", invaliduser = True)
         user = USER(username, email, password)
         session.add(user)
         session.commit()
