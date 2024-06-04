@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import re
 
 app = Flask(__name__)
 
@@ -29,6 +30,9 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+def validemail(input):
+    return bool(re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',input))
+
 
 @app.route("/")
 def index():
@@ -40,6 +44,8 @@ def register():
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
+        if not validemail(email):
+            return render_template("register.html",unvalidemail=1)
         user = USER(username, email, password)
         session.add(user)
         session.commit()
