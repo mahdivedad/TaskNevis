@@ -59,7 +59,18 @@ def register():
         return "You are registered"
     return render_template("register.html")
 
+@app.route("/login", methods=["GET" , "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = session.query(USER).filter(USER.Username == username , USER.password == password).firts()
+        if user:
+            return "<h1>Welcome</h1>"
+        else:
+            return render_template("login.html" , invalid=True)
+    return render_template("login.html")
 
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
