@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -40,26 +40,37 @@ class TASK(Base):
     def __repr__(self):
         return f"({self.task}) {self.description} written by {self.owner}"
     
+    
 engine = create_engine("sqlite:///users.db", echo=True)
 Base.metadata.create_all(bind=engine)
+
 Session = sessionmaker(bind=engine)
 session = Session()
+
+
 def validemail(input):
     return bool(re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',input))
+
 def validuser(input):
     result = session.query(USER).filter(USER.username == input)
     for r in result:
         return True
     return False
+
 def validlogin(username , password):
     result = session.query(USER).filter(USER.username == username , USER.password == password)
     for r in result:
         return True
     return False
 
+
 @app.route("/")
 def index():
     return render_template("home.html")
+
+@app.route("/mainpage/<user>")
+def mainpage(user):
+    return "hello"
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -74,9 +85,8 @@ def register():
         user = USER(username, email, password)
         session.add(user)
         session.commit()
-        return "You are registered"
+        return redirect(url_for("mainpage", user = username))
     return render_template("register.html")
-
 
 @app.route("/login", methods=["GET" , "POST"])
 def login():
