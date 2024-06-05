@@ -70,7 +70,7 @@ def index():
 
 @app.route("/mainpage/<user>")
 def mainpage(user):
-    return "hello"
+    return render_template("mainpage.html", user = user)
 
 @app.route("/register", methods=["GET","POST"])
 def register():
