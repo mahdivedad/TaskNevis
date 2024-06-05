@@ -94,7 +94,7 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         if validlogin(username , password):
-            return "<h1>Welcome</h1>"
+            return redirect(url_for("mainpage", user = username))        
         else:
             return render_template("login.html" , invalid=True)
     return render_template("login.html")
