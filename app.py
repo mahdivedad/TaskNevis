@@ -37,7 +37,11 @@ def validuser(input):
     for r in result:
         return True
     return False
-
+def validlogin(username , password):
+    result = session.query(USER).filter(USER.Username == username , USER.password == password)
+    for r in result:
+        return True
+    return False
 
 @app.route("/")
 def index():
@@ -64,8 +68,7 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        user = session.query(USER).filter(USER.Username == username , USER.password == password).firts()
-        if user:
+        if validlogin(username , password):
             return "<h1>Welcome</h1>"
         else:
             return render_template("login.html" , invalid=True)
