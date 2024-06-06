@@ -72,6 +72,10 @@ def index():
 def mainpage(user):
     return render_template("mainpage.html", user = user)
 
+@app.route("/newpage/<user>")
+def newpage(user):
+    return render_template("newpage.html", user = user)
+
 @app.route("/register", methods=["GET","POST"])
 def register():
     if request.method == "POST":
