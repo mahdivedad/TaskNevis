@@ -104,12 +104,18 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/mainpage")
+@app.route("/mainpage", methods=["GET", "POST"])
 def mainpage():
     if "username" in temp:
         username = temp["username"]
         temp.clear()
-        return f"{username}"
+        return render_template("mainpage.html",username = username)
+    if request.method == "POST":
+        action = request.form.get("x")
+        if action == "add":
+            return "you want to add tasks"
+        else:
+            return "you want to change your password"
     return redirect("/")
 
 
