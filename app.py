@@ -109,14 +109,16 @@ def mainpage():
     if "username" in temp:
         username = temp["username"]
         temp.clear()
-        return render_template("mainpage.html",username = username)
+        return render_template("mainpage.html", username = username)
     if request.method == "POST":
         action = request.form.get("x")
+        username = request.form.get("username")
         if action == "add":
-            return "you want to add tasks"
+            return render_template("Task.html", username = username)
         else:
             return "you want to change your password"
     return redirect("/")
+ 
 
 
 if __name__ == "__main__":
