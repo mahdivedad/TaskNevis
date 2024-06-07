@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,session
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -6,7 +6,11 @@ import re
 
 app = Flask(__name__)
 
+app.secret_key = "hello"
+
 Base = declarative_base()
+
+temp = {}
 
 class USER(Base):
 
@@ -82,7 +86,8 @@ def register():
         user = USER(username, email, password)
         session.add(user)
         session.commit()
-        return redirect(url_for("mainpage", user = username))
+        temp["username"] = username
+        return redirect(url_for("mainpage"))
     return render_template("register.html")
 
 
@@ -92,15 +97,20 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         if validlogin(username , password):
-            return redirect(url_for("mainpage", user = username))        
+            temp["username"] = username
+            return redirect(url_for("mainpage"))        
         else:
             return render_template("login.html" , invalid=True)
     return render_template("login.html")
 
 
 @app.route("/mainpage")
-def mainpage(user):
-    return render_template("mainpage.html", user = user)
+def mainpage():
+    if "username" in temp:
+        username = temp["username"]
+        temp.clear()
+        return f"{username}"
+    return redirect("/")
 
 
 if __name__ == "__main__":
