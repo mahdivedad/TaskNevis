@@ -6,13 +6,16 @@
 
     <form action="/mainpage" method="post">
         <div>
+            <input type="hidden" name="username" value="{{ username }}">
             <button type="submit" value="change" name="x">Change password</button>
         </div>
     </form>
     <form action="/mainpage" method="post">
         <div>
+            <input type="hidden" name="username" value="{{ username }}">
             <button type="submit" value="add" name="x">Add task</button>
         </div>
     </form>
+    
     
 {% endblock %}
