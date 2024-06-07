@@ -100,7 +100,7 @@ def login():
             temp["username"] = username
             return redirect(url_for("mainpage"))        
         else:
-            return render_template("login.html" , invalid=True)
+            return render_template("login.html" , invalid = True)
     return render_template("login.html")
 
 
@@ -108,16 +108,32 @@ def login():
 def mainpage():
     if "username" in temp:
         username = temp["username"]
-        temp.clear()
+        if request.method == "POST":
+            action = request.form.get("x")
+            if action == "add":
+                return "you want to add tasks"
+            elif action == "change":
+                return redirect(url_for("changepassword"))
         return render_template("mainpage.html", username = username)
-    if request.method == "POST":
-        action = request.form.get("x")
-        if action == "add":
-            return "you want to add tasks"
-        else:
-            return "you want to change your password"
     return redirect("/")
  
+@app.route("/changepassword", methods=["GET", "POST"])
+def changepassword():
+    if "username" in temp:
+        username = temp["username"]
+        if request.method == "POST":
+            currentpassword = request.form.get("current password")
+            newpassword = request.form.get("new password")
+            if validlogin(username, currentpassword):
+                user = session.query(USER).filter(USER.username == username).first()
+                user.password = newpassword
+                session.commit()
+                temp.clear()
+                return redirect(url_for("login"))
+            else:
+                return render_template("changepassword.html", invalid = True)
+        return render_template("changepassword.html", invalid = False)
+    return redirect("/")
 
 
 if __name__ == "__main__":
