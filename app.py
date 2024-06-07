@@ -68,9 +68,6 @@ def validlogin(username , password):
 def index():
     return render_template("home.html")
 
-@app.route("/mainpage/<user>")
-def mainpage(user):
-    return render_template("mainpage.html", user = user)
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -88,6 +85,7 @@ def register():
         return redirect(url_for("mainpage", user = username))
     return render_template("register.html")
 
+
 @app.route("/login", methods=["GET" , "POST"])
 def login():
     if request.method == "POST":
@@ -98,6 +96,11 @@ def login():
         else:
             return render_template("login.html" , invalid=True)
     return render_template("login.html")
+
+
+@app.route("/mainpage")
+def mainpage(user):
+    return render_template("mainpage.html", user = user)
 
 
 if __name__ == "__main__":
