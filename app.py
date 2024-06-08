@@ -106,13 +106,17 @@ def login():
 def mainpage():
     if "username" in temp:
         username = temp["username"]
-        if request.method == "POST":
-            action = request.form.get("x")
-            if action == "add":
-                return render_template("Task.html")
-            elif action == "change":
-                return redirect(url_for("changepassword"))
+        temp.clear()
         return render_template("mainpage.html", username = username)
+    if request.method == "POST":
+        action = request.form.get("x")
+        username = request.form.get("username")
+        if action == "add":
+            return render_template("Task.html", username = username)
+        elif action == "change":
+            return render_template("changepassword.html", username = username)
+        else:
+            return render_template("mainpage.html", username = username)
     return redirect("/")
  
 @app.route("/changepassword", methods=["GET", "POST"])
