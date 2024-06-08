@@ -1,8 +1,13 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
 
-{% block body %}
-
-    <h1>sign in</h1>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>welcome</title>
+  <title>Task nevis</title>
+    </head>
+    <body>
+        <h1>sign in</h1>
     {% if invalidemail %}
     please enter a valid email
     {% endif %}
@@ -15,5 +20,5 @@
         <input autocomplete="off" autofocus name="password" placeholder="Password" type="password" required>
         <button type="submit">Register</button>
     </form>
-    
-{% endblock %}
+    </body>
+</html>

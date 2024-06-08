@@ -68,7 +68,7 @@ def validlogin(username , password):
 
 @app.route("/")
 def index():
-    return render_template("home.html")
+    return render_template("login.html")
 
 
 @app.route("/register", methods=["GET","POST"])

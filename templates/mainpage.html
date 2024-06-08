@@ -1,8 +1,13 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
 
-{% block body %}
-
-    welcome {{ username }}
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>welcome</title>
+  <title>Task nevis</title>
+    </head>
+    <body>
+        welcome {{ username }}
 
     <form action="/mainpage" method="post">
         <div>
@@ -21,6 +26,5 @@
             <button type="submit">Log out</button>
         </div>
     </form>
-    
-    
-{% endblock %}
+    </body>
+</html>
