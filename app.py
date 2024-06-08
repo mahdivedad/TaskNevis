@@ -131,8 +131,7 @@ def changepassword():
             session.commit()
             return redirect(url_for("login"))
         else:
-            return render_template("changepassword.html", invalid = True)
-    return render_template("changepassword.html", invalid = False)
+            return render_template("changepassword.html", invalid = True, username = username)
     return redirect("/")
 
 
