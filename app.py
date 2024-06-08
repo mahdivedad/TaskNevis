@@ -121,20 +121,18 @@ def mainpage():
  
 @app.route("/changepassword", methods=["GET", "POST"])
 def changepassword():
-    if "username" in temp:
-        username = temp["username"]
-        if request.method == "POST":
-            currentpassword = request.form.get("current password")
-            newpassword = request.form.get("new password")
-            if validlogin(username, currentpassword):
-                user = session.query(USER).filter(USER.username == username).first()
-                user.password = newpassword
-                session.commit()
-                temp.clear()
-                return redirect(url_for("login"))
-            else:
-                return render_template("changepassword.html", invalid = True)
-        return render_template("changepassword.html", invalid = False)
+    if request.method == "POST":
+        username = request.form.get("username")
+        currentpassword = request.form.get("current password")
+        newpassword = request.form.get("new password")
+        if validlogin(username, currentpassword):
+            user = session.query(USER).filter(USER.username == username).first()
+            user.password = newpassword
+            session.commit()
+            return redirect(url_for("login"))
+        else:
+            return render_template("changepassword.html", invalid = True)
+    return render_template("changepassword.html", invalid = False)
     return redirect("/")
 
 
