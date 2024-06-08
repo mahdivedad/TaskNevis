@@ -111,7 +111,7 @@ def mainpage():
         if request.method == "POST":
             action = request.form.get("x")
             if action == "add":
-                return "you want to add tasks"
+                return render_template("Task.html")
             elif action == "change":
                 return redirect(url_for("changepassword"))
         return render_template("mainpage.html", username = username)
