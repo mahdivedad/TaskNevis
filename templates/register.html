@@ -3,22 +3,145 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="initial-scale=1, width=device-width">
-        <title>welcome</title>
-  <title>Task nevis</title>
+        <title>Register</title>
+        <style>
+            *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins',sans-serif;
+        }
+        section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            
+            background: url('background6.jpg')no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .form-box{
+            position: relative;
+            width: 400px;
+            height: 450px;
+            background: transparent;
+            border: 2px solid rgba(20, 4, 2, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+        }
+        h2{
+            font-size: 2em;
+            color: #180101;
+            text-align: center;
+        }
+        .inputbox{
+            position: relative;
+            margin: 30px 0;
+            width: 310px;
+            border-bottom: 2px solid #060000;
+        }
+        .inputbox label{
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            color: #120101;
+            font-size: 1em;
+            pointer-events: none;
+            transition: .5s;
+        }
+        input:focus ~ label,
+        input:valid ~ label{
+        top: -5px;
+        }
+        .inputbox input {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding:0 35px 0 5px;
+            color: #160505;
+        }
+        .inputbox ion-icon{
+            position: absolute;
+            right: 8px;
+            color: #0b0502;
+            font-size: 1.2em;
+            top: 20px;
+        }
+        button{
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            background: #ebd9d9;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            background-color: #fd4c7b;
+        }
+        .register{
+            font-size: .9em;
+            color: #0f0403;
+            text-align: center;
+            margin: 25px 0 10px;
+        }
+        .register p a{
+            text-decoration: none;
+            color: #0e0202;
+            font-weight: 600;
+        }
+        .register p a:hover{
+            text-decoration: underline;
+        }
+    </style>
     </head>
     <body>
-        <h1>sign in</h1>
-    {% if invalidemail %}
+        {% if invalidemail %}
     please enter a valid email
     {% endif %}
     {% if invaliduser %}
     this username is already in use please choose a different one
     {% endif %}
-    <form action="/register" method="post">
-        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text" required>
-        <input autocomplete="off" autofocus name="email" placeholder="Email" type="email" required>
-        <input autocomplete="off" autofocus name="password" placeholder="Password" type="password" required>
-        <button type="submit">Register</button>
-    </form>
+        <section>
+            <div class="form-box">
+                <div class="form-value">
+                    <form action="register" method="post">
+                        <h2>Register</h2>
+                        <div class="inputbox">
+                            <input type="email" name="username" required>
+                            <label for="">Username</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input type="email" name="email" required>
+                            <label for="">Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input type="password" name="password" required>
+                            <label for="">Password</label>
+                        </div>
+                        <button>Register</button>
+                        <div class="register">
+                            <p>Already registered? <a href="login">Login</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </body>
 </html>
