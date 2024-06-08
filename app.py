@@ -6,8 +6,6 @@ import re
 
 app = Flask(__name__)
 
-app.secret_key = "hello"
-
 Base = declarative_base()
 
 temp = {}
