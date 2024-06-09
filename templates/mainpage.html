@@ -1,58 +1,45 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-
 <head>
-
-
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>Main Page</title>
-
-    
     <style>
         .btn {
-            padding: 10px 20px;
+            padding: 10px 40px;
             margin: 10px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #dd1818;
+            background-color: #ffc4c4;
             color: #090000;
             border: none;
-            border-radius: 5px;
+            border-radius: 40px;
             transition: 0.3s;
         }
         .btn:hover {
-            background-color: #ceeb11;
+            background-color: #f60f0f;
         }
-
         .container {
             text-align: center;
             margin-top: 50px;
         }
-
         #welcome-message {
             text-align: center;
             font-size: 2em;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
         .button-container {
             display: flex;
             justify-content: flex-start;
         }
-
-
+        #video-container {
+            margin-left: 20px;
+        }
     </style>
-
-
 </head>
-
-
 <body>
-
-
     <div class="button-container">
         <form action="/mainpage" method="post">
             <div>
@@ -66,7 +53,14 @@
             </div>
         </form>
     </div>
-    <div id="welcome-message"><h2>Welcome {{ username }}</h2></div>
+    <div id="welcome-message">
+        <h2>Welcome {{ username }}</h2>
+        <div id="video-container">
+            <video width="150" height="200" autoplay loop muted>
+                <source src="king-king-baldwin.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
     <div class="container">
         <form action="/mainpage" method="post">
             <div>
@@ -75,9 +69,5 @@
             </div>
         </form>
     </div>
-
-
 </body>
-
-
 </html>
