@@ -32,10 +32,10 @@ class TASK(Base):
 
     task = Column("task", String, primary_key=True)
     description = Column("describtion", String)
-    owner = Column(String, ForeignKey("users.username"))
+    owner = Column("owner",String)
     Date = Column("Date",String)
     Time = Column("Time",String)
-    Condition=Column=("Condition",String)
+    Condition=Column("Condition",String)
 
     def __init__(self, task, describtion, owner, Date, Time, Condition):
         self.task = task
