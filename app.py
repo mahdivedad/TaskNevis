@@ -33,11 +33,17 @@ class TASK(Base):
     task = Column("task", String, primary_key=True)
     description = Column("describtion", String)
     owner = Column(String, ForeignKey("users.username"))
+    Date = Column("Date",String)
+    Time = Column("Time",String)
+    Condition=Column=("Condition",String)
 
-    def __init__(self, task, describtion, owner):
+    def __init__(self, task, describtion, owner, Date, Time, Condition):
         self.task = task
         self.description = describtion
         self.owner = owner
+        self.Date = Date
+        self.Time = Time
+        self.Condition = Condition
 
     def __repr__(self):
         return f"({self.task}) {self.description} written by {self.owner}"
@@ -133,7 +139,22 @@ def changepassword():
         else:
             return render_template("changepassword.html", invalid = True, username = username)
     return redirect("/")
+ 
+@app.route("/Task", methods=["POST","GET"])
+def Task():
+    if request.method == "POST":
+         task=request.form.get("TaskName")
+         description=request.form.get("Task")
+         owner=request.form.get("Username")
+         Date=request.form.get("DateInput")
+         Time=request.form.get("TimeInput")
+         Condition=request.form.get("condition")
 
+         
+    task = TASK(task, description, owner, Date, Time, Condition)
+    session.add(task)
+    session.commit()
+    return ("Done")
 
 if __name__ == "__main__":
     app.run(debug=True)
