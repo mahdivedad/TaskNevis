@@ -104,7 +104,7 @@ def validlogin(username , password):
 
 @app.route("/")
 def index():
-    return render_template("login.html")
+    return redirect(url_for("login"))
 
 
 @app.route("/register", methods=["GET","POST"])
@@ -154,6 +154,7 @@ def mainpage():
         else:
             return render_template("mainpage.html", username = username)
     return redirect("/")
+
         
  
 @app.route("/changepassword", methods=["GET", "POST"])
@@ -170,6 +171,7 @@ def changepassword():
         else:
             return render_template("changepassword.html", invalid = True, username = username)
     return redirect("/")
+
  
 @app.route("/Task", methods=["POST","GET"])
 def Task():
