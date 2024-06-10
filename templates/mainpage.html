@@ -68,6 +68,13 @@
                 <button type="submit" value="add" name="x" class="btn">Add Task</button>
             </div>
         </form>
+        <form action="/ShowTask" method="post">
+            <div>
+                <input type="hidden" name="ShowTask" value="{{ username }}">
+                <button type="submit" value="ShowTask" onclick="showfunction()" name="ShowTask" class="btn">Show Tasks</button>
+            </div>
+        </form>
+            {{rows}}
     </div>
 </body>
 </html>

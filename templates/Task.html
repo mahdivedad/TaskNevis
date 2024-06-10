@@ -1,59 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% extends "screens.html" %}
+<style>
+    
+.btn {
+    padding: 10px 40px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ffc4c4;
+    color: #090000;
+    border: none;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+.btn:hover {
+    background-color: #f60f0f;
+}
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+#welcome-message {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+}
+#video-container {
+    margin-left: 20px;
+}
+</style>
+{% block body %}
 <body>
-    <div>
+    <center>
+    <div class="form-box" style="height:80%">
+    <div class="container">
+    <section>
+    <div class="form-value">
         <form action="/Task" method="post" id="form">
             <input type="hidden" value={{username}} id="Username" name="Username">
-            <div>
-                Task Name: <input id="TaskName" name="TaskName">
+            <div class="inputbox">
+                <input id="TaskName" name="TaskName">
+                <label for="">Task Name</label>
+            </div>
+            <div class="inputbox">
+                <textarea style="width:310px;height:110px;max-width:310px;max-height:110px" name="Task" id="Task" placeholder="Task"></textarea>
+            </div>
+            <div class="inputbox">
+                <input type="text" id="DateInput" name="DateInput">
+                <label for="">Date</label>
+            </div>
+            <div class="inputbox">
+                <input type="text"  id="TimeInput" name="TimeInput"> 
+                <label for="">Time</label>
+            </div>
+            <div class="inputbox">
+                <input type="text" id="condition" name="condition">
+                <label for="">Condition</label>
             </div>
             <br>
-            <div>
-                <lable>Task: </lable>
-            </div>
-            <br>
-            <div>
-                <textarea name="Task" id="Task"></textarea>
-            </div>
-            <br>
-            <div>
-                Date: <input type="text" id="DateInput" name="DateInput">
-            </div>
-            <br>
-            <div>
-                Time: <input type="text" id="TimeInput" name="TimeInput"> 
-            </div>
-            <div>
-                <lable>Condition</lable>
-            </div>
-            <div>
-                <select id="Con" onclick="myfunction()">
-                    <option value="Done">Done</option>
-                    <option value="Doing">Doing</option>
-                    <option value="Not Done">Not Done</option>
-                </select>
-            </div>
-            <input type="hidden" id="condition" name="condition">
-            <br>
-            <div>
-            <input style="display:none" type="submit" id="submitbutton" value="submit">
-            </div>
+            <button type="submit" id="submitbutton" style="display:none" class="btn">submit</button>
         </form>
         <div>
-            <button onclick="checkfunction()" id="checkbutton">Check</button>
+            <button onclick="checkfunction()" class="btn" id="checkbutton">Check</button>
         </div>
     </div>
+</section>
+</div>
+</div>
+</center>
     <script>
         function myfunction() {
             var a = document.getElementById("Con").value;
             document.getElementById("condition").value=a;
-
-
         }
         myfunction();
 
@@ -69,7 +93,21 @@
                 document.getElementById("checkbutton").style.display="none";
                 document.getElementById("submitbutton").style.display="block";
             }
+            var hour=new Date().gethour();
+            var minute=new Date().getminute();
+            var finalminute;
+            if(minute<10){
+                finalminute="0"+minute;
+            }
+            else{
+                finalminute=minute;
+            }
+            document.getElementById("TimeInput").value=hour+":"+finalminute;
         }
+
     </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
+{% endblock %}
 </html>

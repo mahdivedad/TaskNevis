@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import re
+import os
+from IPython.display import HTML
 
 app = Flask(__name__)
 
@@ -33,7 +35,7 @@ class TASK(Base):
     task = Column("task", String, primary_key=True)
     description = Column("describtion", String)
     owner = Column("owner",String)
-    Date = Column("Date",String)
+    Date = Column("Date",String,primary_key=True)
     Time = Column("Time",String)
     Condition=Column("Condition",String)
 
@@ -44,10 +46,38 @@ class TASK(Base):
         self.Date = Date
         self.Time = Time
         self.Condition = Condition
+    
+    
 
     def __repr__(self):
-        return f"({self.task}) {self.description} written by {self.owner}"
-    
+         html= f"""
+         <table border="1">
+              <tr>
+                  <th>Task</th>
+                  <th>Description</th>
+                  <th>Owner</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Condition</th>
+              </tr>
+              <tr>
+                  <td>{self.task}</td>
+                  <td>{self.description}</td>
+                  <td>{self.owner}</td>
+                  <td>{self.Date}</td>
+                  <td>{self.Time}</td>
+                  <td>{self.Condition}</td>
+              </tr>
+         </table>
+         """
+         return (html)
+
+  
+         
+
+    # def __repr__(self):
+    #      return f"[{self.task}{self.description} {self.owner} {self.Date} {self.Time} {self.Condition}]"
+     
     
 engine = create_engine("sqlite:///users.db", echo=True)
 Base.metadata.create_all(bind=engine)
@@ -124,6 +154,7 @@ def mainpage():
         else:
             return render_template("mainpage.html", username = username)
     return redirect("/")
+        
  
 @app.route("/changepassword", methods=["GET", "POST"])
 def changepassword():
@@ -155,6 +186,16 @@ def Task():
     session.add(task)
     session.commit()
     return ("Done")
+
+
+
+@app.route("/ShowTask", methods=["POST","GET"])
+def ShowTask():
+    if request.method == "POST":
+        ShowTask=request.form.get("ShowTask")
+        result = session.query(TASK).filter(TASK.owner == ShowTask).all()
+        result =" ".join(map(str, result))
+        return render_template("ShowTask.html", rows=result,username=ShowTask)
 
 if __name__ == "__main__":
     app.run(debug=True)
