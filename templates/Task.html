@@ -1,6 +1,5 @@
 {% extends "screens.html" %}
 <style>
-    
 .btn {
     padding: 10px 40px;
     margin: 10px;
@@ -48,20 +47,23 @@
                 <input id="TaskName" name="TaskName">
                 <label for="">Task Name</label>
             </div>
-            <div class="inputbox">
-                <textarea style="width:310px;height:110px;max-width:310px;max-height:110px" name="Task" id="Task" placeholder="Task"></textarea>
+            <div>
+                <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="  Task" id="Task" placeholder="Task"></textarea>
             </div>
             <div class="inputbox">
-                <input type="text" id="DateInput" name="DateInput">
+                <input type="text" id="DateInput" name="DateInput" style="margin-top:15px">
                 <label for="">Date</label>
             </div>
             <div class="inputbox">
-                <input type="text"  id="TimeInput" name="TimeInput"> 
+                <input type="text" id="TimeInput" name="TimeInput" style="margin-top:15px"> 
                 <label for="">Time</label>
             </div>
-            <div class="inputbox">
-                <input type="text" id="condition" name="condition">
-                <label for="">Condition</label>
+            <div>
+                <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">
+                    <option value="Done">Done</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Not Done">Not Done</option>
+                </select>
             </div>
             <br>
             <button type="submit" id="submitbutton" style="display:none" class="btn">submit</button>
@@ -69,18 +71,29 @@
         <div>
             <button onclick="checkfunction()" class="btn" id="checkbutton">Check</button>
         </div>
+        <form action="/Backtomainpage" method="post">
+        <div style="padding-bottom:15px">
+            <input type="hidden" value="{{username}}" id="username" name="username">
+            <button type="submit" class="btn" id="checkbutton">Back to main Page</button>
+        </div>
+        </form>
     </div>
 </section>
 </div>
 </div>
+<div><p style="color:red">{{invalid}}</p></div>
 </center>
     <script>
-        function myfunction() {
-            var a = document.getElementById("Con").value;
-            document.getElementById("condition").value=a;
+        function myfunction(){
+            var Year = new Date().getFullYear();
+            var Month = new Date().getMonth()+1;
+            var Day = new Date().getUTCDate();
+            var Hour = new Date().getHours();
+            var Minute = new Date().getMinutes();
+            document.getElementById("DateInput").value = Year+"/"+Month+"/"+Day;
+            document.getElementById("TimeInput").value = Hour+":"+Minute;
         }
         myfunction();
-
         function checkfunction(){
             var TaskName=document.getElementById("TaskName").value;
             var Task=document.getElementById("Task").value;
@@ -103,6 +116,10 @@
                 finalminute=minute;
             }
             document.getElementById("TimeInput").value=hour+":"+finalminute;
+
+            var Condition=document.getElementById("conditionSelect").value;
+            alert(Condition);
+            document.getElementById("condition").value = Condition;
         }
 
     </script>

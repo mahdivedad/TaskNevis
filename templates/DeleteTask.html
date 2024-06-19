@@ -1,0 +1,79 @@
+{% extends "screens.html" %}
+<style>
+    .btn {
+        padding: 10px 40px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #ffc4c4;
+        color: #090000;
+        border: none;
+        border-radius: 40px;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        background-color: #f60f0f;
+    }
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    #welcome-message {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .button-container {
+        display: flex;
+        justify-content: flex-start;
+    }
+    #video-container {
+        margin-left: 20px;
+    }
+    </style>
+{% block body %}
+<body>
+    <center>
+        <div class="form-box" style="height:250px">
+        <div class="container">
+        <section>
+        <div class="form-value">
+            <form action="deleteTask" method="POST">
+                <input value="{{username}}" name="username" id="username" type="hidden">
+                <div class="inputbox">
+                    <input type="text" id="taskname" name="taskname" style="margin-top:15px"> 
+                    <label for="">Task Name</label>
+                </div>
+                <div>
+                    <button class="btn" onclick="checkfunction()" type="button">Check</button>
+                    <button type="submit" id="deletebutton"  class="btn" style="display:none" type="submit">Delete</button>
+                </div>
+            </form>
+            <form action="/Backtomainpage" method="POST">
+                <div style="padding-bottom:15px">
+                    <input type="hidden" value="{{username}}" id="username" name="username">
+                    <button type="submit" class="btn">Back to mainpage</button>
+                <div>
+            </form>
+        </div>
+        </section>
+        </div>
+        </div>
+        <p style="color:red">{{invalid}}</p>
+        <script>
+            function checkfunction(){
+                var a = document.getElementById("taskname").value;
+                var b = confirm("Are you sure that you want to delete a Task with name : "+a);
+                if(b == true){
+                    document.getElementById("deletebutton").style.display = "block";
+                }
+                else if(b == false){
+                    document.getElementById("deletebutton").style.display = "none";
+                }
+            }
+        </script>
+</body>
+{% endblock %}

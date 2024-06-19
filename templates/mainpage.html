@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-
 <head>
-
-
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>Main Page</title>
-
-
     <style>
-
-
         .btn {
             padding: 10px 40px;
             margin: 10px;
@@ -47,17 +37,9 @@
         #video-container {
             margin-left: 20px;
         }
-
-
     </style>
-
-
 </head>
-
-
 <body>
-
-
     <div class="button-container">
         <form action="/mainpage" method="post">
             <div>
@@ -72,7 +54,8 @@
         </form>
     </div>
     <div id="welcome-message">
-        <h2>Welcome {{ username }}</h2>
+        <h2 id="UserNameH2">Welcome {{ username }}</h2>
+        <input id="UserName" value="{{username}}" type="hidden">
         <div id="video-container">
             <video width="150" height="200" autoplay loop muted>
                 <source src="king-king-baldwin.mp4" type="video/mp4">
@@ -89,14 +72,21 @@
         <form action="/ShowTask" method="post">
             <div>
                 <input type="hidden" name="ShowTask" value="{{ username }}">
-                <button type="submit" value="ShowTask" onclick="showfunction()" name="ShowTask" class="btn">Show Tasks</button>
+                <button type="submit" value="ShowTask" name="ShowTask" class="btn">Show Tasks</button>
             </div>
         </form>
-            {{rows}}
+        <form action="/EditTask" method="post">
+            <div>
+                <input type="hidden" name="username" value="{{ username }}">
+                <button type="submit" value="editTask" name="x" class="btn">Edit Tasks</button>
+            <div>
+        </form>
+        <form action="/mainpage" method="post">
+            <div>
+                <input type="hidden" name="username" value="{{ username }}">
+                <button type="submit" value="deleteTask" name="x" class="btn">Delete a Task</button>
+            <div>
+        </form>
     </div>
-
-    
 </body>
-
-
 </html>
