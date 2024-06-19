@@ -1,43 +1,8 @@
 {% extends "screens.html" %}
-<style>
-.btn {
-    padding: 10px 40px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #ffc4c4;
-    color: #090000;
-    border: none;
-    border-radius: 40px;
-    transition: 0.3s;
-}
-.btn:hover {
-    background-color: #f60f0f;
-}
-.container {
-    text-align: center;
-    margin-top: 50px;
-}
-#welcome-message {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.button-container {
-    display: flex;
-    justify-content: flex-start;
-}
-#video-container {
-    margin-left: 20px;
-}
-</style>
 {% block body %}
 <body>
     <center>
-    <div class="form-box" style="height:80%">
+    <div class="form-box" style="height:500px">
     <div class="container">
     <section>
     <div class="form-value">
@@ -48,15 +13,7 @@
                 <label for="">Task Name</label>
             </div>
             <div>
-                <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="  Task" id="Task" placeholder="Task"></textarea>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="DateInput" name="DateInput" style="margin-top:15px">
-                <label for="">Date</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="TimeInput" name="TimeInput" style="margin-top:15px"> 
-                <label for="">Time</label>
+                <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="Task" id="Task" placeholder="Task"></textarea>
             </div>
             <div>
                 <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">
@@ -84,16 +41,6 @@
 <div><p style="color:red">{{invalid}}</p></div>
 </center>
     <script>
-        function myfunction(){
-            var Year = new Date().getFullYear();
-            var Month = new Date().getMonth()+1;
-            var Day = new Date().getUTCDate();
-            var Hour = new Date().getHours();
-            var Minute = new Date().getMinutes();
-            document.getElementById("DateInput").value = Year+"/"+Month+"/"+Day;
-            document.getElementById("TimeInput").value = Hour+":"+Minute;
-        }
-        myfunction();
         function checkfunction(){
             var TaskName=document.getElementById("TaskName").value;
             var Task=document.getElementById("Task").value;
@@ -106,20 +53,6 @@
                 document.getElementById("checkbutton").style.display="none";
                 document.getElementById("submitbutton").style.display="block";
             }
-            var hour=new Date().gethour();
-            var minute=new Date().getminute();
-            var finalminute;
-            if(minute<10){
-                finalminute="0"+minute;
-            }
-            else{
-                finalminute=minute;
-            }
-            document.getElementById("TimeInput").value=hour+":"+finalminute;
-
-            var Condition=document.getElementById("conditionSelect").value;
-            alert(Condition);
-            document.getElementById("condition").value = Condition;
         }
 
     </script>

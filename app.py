@@ -198,7 +198,7 @@ def changepassword():
 def Task():
     if request.method == "POST":
          task=request.form.get("TaskName")
-         description=request.form.get("Task")
+         description = request.form.get("Task")
          owner = request.form.get("Username")
          Date=request.form.get("DateInput")
          Time=request.form.get("TimeInput")
