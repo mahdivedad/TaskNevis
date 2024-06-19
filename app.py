@@ -35,16 +35,12 @@ class TASK(Base):
     task = Column("task", String, primary_key=True)
     description = Column("describtion", String)
     owner = Column("owner",String)
-    Date = Column("Date",String,primary_key=True)
-    Time = Column("Time",String)
     Condition=Column("Condition",String)
 
-    def __init__(self, task, describtion, owner, Date, Time, Condition):
+    def __init__(self, task, describtion, owner, Condition):
         self.task = task
         self.description = describtion
         self.owner = owner
-        self.Date = Date
-        self.Time = Time
         self.Condition = Condition
     
     
@@ -200,13 +196,11 @@ def Task():
          task=request.form.get("TaskName")
          description = request.form.get("Task")
          owner = request.form.get("Username")
-         Date=request.form.get("DateInput")
-         Time=request.form.get("TimeInput")
          Condition=request.form.get("condition")
     if ValidTaskAdd(task,owner):
          return render_template("Task.html" , invalid = "There is a Task with this name. please set another name for your new task")  
     else:
-        task = TASK(task, description, owner, Date, Time, Condition)
+        task = TASK(task, description, owner,Condition)
         session.add(task)
         session.commit()
         return render_template("mainpage.html",username = owner)
@@ -234,7 +228,7 @@ def deleteTask():
         username = request.form.get("username")
         TaskName = request.form.get("taskname")
         if anyData(TaskName,username):
-            result = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
+            result = session.query(TASK).filter(TASK.task == TaskName).first()
             session.delete(result)
             session.commit()
             return render_template("DeleteTask.html", username = username , invalid="Task deleted successfully")
