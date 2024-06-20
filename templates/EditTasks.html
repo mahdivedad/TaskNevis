@@ -3,23 +3,20 @@
 <body>
 <body>
 <center>
-    <div class="form-box" style="height:600px">
+    <div class="form-box" style="height:550px">
     <div class="container">
     <section>
     <div class="form-value">
     <form action="/EditingCheck" method="post">
         <input value="{{username}}" name="username" id="username" type="hidden">
-        <div class="inputbox">
-            <lable for="">Task Name<lable> 
-            <input type="text" id="TaskName" name="TaskName" value="{{TaskName}}"> 
-        </div>
+        <input type="hidden" id="TaskName" name="TaskName" value="{{TaskName}}"> 
         <div class="inputbox">
             <lable for="">New Task Name<lable> 
             <input type="text" id="NewTaskName" name="NewTaskName" value="{{TaskName}}"> 
         </div>
         <div>
         <div>
-           describtion: <input name="describtion" id="describtion">
+            <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="describtion" id="describtion" placeholder="Task">{{Task}}</textarea>
         </div>
         <div>
             <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">
