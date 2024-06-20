@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for,session
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
+from flask import Flask, render_template, request, redirect, url_for
+from sqlalchemy import create_engine, Column, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import re
@@ -22,9 +22,6 @@ class USER(Base):
         self.username = username
         self.email = email
         self.password = password
-
-    def __repr__(self):
-        return f"({self.username}) {self.email} {self.password}"
 
 class TASK(Base):
 
@@ -183,7 +180,7 @@ def Task():
         owner = request.form.get("Username")
         Condition=request.form.get("condition")
         if ValidTaskAdd(task,owner):
-            return render_template("Task.html" , invalid = "There is a Task with this name. please set another name for your new task")  
+            return render_template("Task.html" , invalid = "There is a Task with this name. please set another name for your new task", username = owner)  
         task = TASK(task, description, owner,Condition)
         session.add(task)
         session.commit()
