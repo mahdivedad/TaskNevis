@@ -82,6 +82,12 @@ def anyData(TaskName,username):
         return True
     return False
 
+def uniqueData(TaskName,username):
+    result = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName)
+    for r in result:
+        return True
+    return False
+
 def deleteTask(Taskname,username):
         if anyData(Taskname,username):
             result = session.query(TASK).filter(TASK.task == Taskname).first()
@@ -143,7 +149,8 @@ def mainpage():
         elif action == "editTask":
             username = request.form.get("username")
             TaskName = request.form.get("task")
-            return render_template("EditTasks.html", username = username ,TaskName = TaskName)
+            Task = request.form.get("describtion")
+            return render_template("EditTasks.html", username = username ,TaskName = TaskName, Task = Task)
         elif action == "deleteTask":
             Taskname = request.form.get("task")
             deleteTask(Taskname,username)
@@ -204,14 +211,15 @@ def editingcheck():
         Task = request.form.get("describtion")
         Condition = request.form.get("condition")
         if anyData(TaskName,username):
-            Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
-            Edit.task = NewTaskName
-            Edit.describtion = Task
-            Edit.Condition = Condition
-            session.commit()
-            return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName)
+             Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
+             Edit.task = NewTaskName
+             Edit.describtion = Task
+             Edit.Condition = Condition
+             session.commit()
+             TaskName = NewTaskName
+             return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName , Task = Task)
         else:
-            return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName)
+            return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName , Task = Task)
            
 
 if __name__ == "__main__":
