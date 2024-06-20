@@ -89,10 +89,10 @@ def uniqueData(TaskName,username):
     return False
 
 def deleteTask(Taskname,username):
-        if anyData(Taskname,username):
-            result = session.query(TASK).filter(TASK.task == Taskname).first()
-            session.delete(result)
-            session.commit()
+    if anyData(Taskname,username):
+        result = session.query(TASK).filter(TASK.task == Taskname).first()
+        session.delete(result)
+        session.commit()
 
 
 @app.route("/")
@@ -126,8 +126,7 @@ def login():
         if validlogin(username , password):
             temp["username"] = username
             return redirect(url_for("mainpage"))        
-        else:
-            return render_template("login.html" , invalid = True)
+        return render_template("login.html" , invalid = True)
     return render_template("login.html")
 
 
@@ -159,7 +158,6 @@ def mainpage():
         task = session.query(TASK).filter(TASK.owner == username).all()
         return render_template("mainpage.html", username = username, task = task)
     return redirect("/")
-
         
  
 @app.route("/changepassword", methods=["GET", "POST"])
@@ -173,8 +171,7 @@ def changepassword():
             user.password = newpassword
             session.commit()
             return redirect(url_for("login"))
-        else:
-            return render_template("changepassword.html", invalid = True, username = username)
+        return render_template("changepassword.html", invalid = True, username = username)
     return redirect("/")
 
  
@@ -193,14 +190,7 @@ def Task():
         task = session.query(TASK).filter(TASK.owner == owner).all()
         return render_template("mainpage.html",username = owner, task = task)
     return redirect("/")
-       
-     
-@app.route("/Backtomainpage" , methods = ["POST","GET"])
-def BacktoMainPage():
-    if request.method == "POST":
-        mainpageusername = request.form.get("username")
-        return render_template("mainpage.html",username = mainpageusername)
-    return redirect("/")   
+         
          
 @app.route("/EditingCheck" , methods=["POST","GET"])
 def editingcheck():
@@ -211,36 +201,18 @@ def editingcheck():
         Task = request.form.get("describtion")
         Condition = request.form.get("condition")
         if anyData(TaskName,username):
-             Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
-             Edit.task = NewTaskName
-             Edit.describtion = Task
-             Edit.Condition = Condition
-             session.commit()
-             TaskName = NewTaskName
-             return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName , Task = Task)
-        else:
-            return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName , Task = Task)
+            Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
+            Edit.task = NewTaskName
+            Edit.describtion = Task
+            Edit.Condition = Condition
+            session.commit()
+            TaskName = NewTaskName
+            return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName , Task = Task)
+        return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName , Task = Task)
+    return redirect("/")
            
 
 if __name__ == "__main__":
     app.run(debug=False)
 
     
-# @app.route("/EditTask",methods=["POST",'GET'])
-# def EditTask():
-#     username = request.form.get("username")
-#     if request.method == "POST":
-#         Taskname=request.form.get("NameTask")
-#         Task=request.form.get("Task")
-#         Condition=request.form.get("Condition")
-#         Username=request.form.get("username")
-#         if validEdit(Username , Taskname):
-#             Task = session.query(TASK).filter(TASK.task == Taskname).first()
-#             Task.task = Taskname
-#             Task.description = Task
-#             Task.Date = None
-#             Task.Time = None
-#             Task.Condition = Condition
-#             db.session.commit()
-#             return redirect(url_for("mainpage"))
-#     return render_template("EditTasks.html", username = username)

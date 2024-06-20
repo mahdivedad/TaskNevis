@@ -54,9 +54,6 @@
             display: flex;
             justify-content: flex-start;
         }
-        #video-container {
-            margin-left: 20px;
-        }
     </style>
 </head>
 <body>
@@ -79,15 +76,8 @@
             </div>
         </form>
     </div>
-    <div id="welcome-message">
-        <h2 id="UserNameH2">Welcome {{ username }}</h2>
-        <input id="UserName" value="{{username}}" type="hidden">
-        <div id="video-container">
-            <video width="150" height="200" autoplay loop muted>
-                <source src="king-king-baldwin.mp4" type="video/mp4">
-            </video>
-        </div>
-    </div>
+    <div id="welcome-message"><h2>Welcome {{ username }}</h2></div>
+    <div class="container"></div>
         {% for t in task %}
         <center>
             <section>
