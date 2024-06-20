@@ -156,8 +156,8 @@ def mainpage():
             deleteTask(Taskname,username)
             task = session.query(TASK).filter(TASK.owner == username).all()
             return render_template("mainpage.html", username = username, task = task)
-        else:
-            return render_template("mainpage.html", username = username, task = task)
+        task = session.query(TASK).filter(TASK.owner == username).all()
+        return render_template("mainpage.html", username = username, task = task)
     return redirect("/")
 
         
