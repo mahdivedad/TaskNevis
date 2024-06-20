@@ -4,7 +4,7 @@
 
     <body>
         <section>
-            <div class="form-box">
+            <div class="form-box" style="height:530px">
                 <div class="form-value">
                     <form action="/register" method="post">
                         <h2>Register</h2>
@@ -24,9 +24,23 @@
                         </div>
                         <button>Register</button>
                         <div class="register">
-                            <p>Already registered? <a href="login">Login</p>
+                            <p>Already registered? <a href="login">Login</a></p>
                         </div>
                     </form>
+                    {% if invaliduser %}
+                    <div>
+                        <center>
+                        <p style="color:red;">This username is already in use</p>
+                        </center>
+                    </div>  
+                    {% endif %}   
+                    {% if invalidemail %}         
+                    <div>
+                        <center>
+                        <p style="color:red;">Please enter valid email</p>
+                         </center>
+                    </div>
+                    {% endif %}   
                 </div>
             </div>
         </section>
