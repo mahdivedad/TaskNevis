@@ -101,10 +101,12 @@
                     <div>
                         {{ t.Condition }}
                     </div>
-                    <form action="/EditingCheck" method="post">
+                    <form action="/mainpage" method="post">
+                        <input type="hidden" value="{{username}}" name="username" id="username">
                         <input type="hidden" name="task" value="{{ t.task }}">
-                        <input type="hidden" name="username" value="{{ t.describtion }}">
-                        <input type="hidden" name="username" value="{{ t.Condition }}">
+                        <input type="hidden" name="describtion" value="{{ t.describtion }}">
+                        <input type="hidden" name="condition" value="{{ t.Condition }}">
+                        <input value="editTask" name="x" type="hidden">
                     <button type="submit">Change</button>
                     </form>
                     <form action="/mainpage" method="post">

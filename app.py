@@ -141,7 +141,9 @@ def mainpage():
         elif action == "change":
             return render_template("changepassword.html", username = username)
         elif action == "editTask":
-            return render_template("EditTasks.html", username = username)
+            username = request.form.get("username")
+            TaskName = request.form.get("task")
+            return render_template("EditTasks.html", username = username ,TaskName = TaskName)
         elif action == "deleteTask":
             Taskname = request.form.get("task")
             deleteTask(Taskname,username)
@@ -197,7 +199,7 @@ def BacktoMainPage():
 def editingcheck():
     if request.method == "POST":
         username = request.form.get("username")
-        TaskName = request.form.get("task")
+        TaskName = request.form.get("TaskName")
         NewTaskName = request.form.get("NewTaskName")
         Task = request.form.get("describtion")
         Condition = request.form.get("condition")
@@ -207,13 +209,13 @@ def editingcheck():
             Edit.describtion = Task
             Edit.Condition = Condition
             session.commit()
-            return render_template("EditTasks.html", username = username , a = Task , TaskName = TaskName)
+            return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName)
         else:
             return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName)
            
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 
     
 # @app.route("/EditTask",methods=["POST",'GET'])
