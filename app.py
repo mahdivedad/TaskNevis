@@ -89,10 +89,10 @@ def uniqueData(TaskName,username):
     return False
 
 def deleteTask(Taskname,username):
-        if anyData(Taskname,username):
-            result = session.query(TASK).filter(TASK.task == Taskname).first()
-            session.delete(result)
-            session.commit()
+    if anyData(Taskname,username):
+        result = session.query(TASK).filter(TASK.task == Taskname).first()
+        session.delete(result)
+        session.commit()
 
 
 @app.route("/")
@@ -195,12 +195,14 @@ def Task():
     return redirect("/")
        
      
+     
 @app.route("/Backtomainpage" , methods = ["POST","GET"])
 def BacktoMainPage():
     if request.method == "POST":
         mainpageusername = request.form.get("username")
         return render_template("mainpage.html",username = mainpageusername)
     return redirect("/")   
+         
          
 @app.route("/EditingCheck" , methods=["POST","GET"])
 def editingcheck():
@@ -220,27 +222,10 @@ def editingcheck():
             return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName , Task = Task)
         else:
             return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName , Task = Task)
+    return redirect("/")
            
 
 if __name__ == "__main__":
     app.run(debug=False)
 
     
-# @app.route("/EditTask",methods=["POST",'GET'])
-# def EditTask():
-#     username = request.form.get("username")
-#     if request.method == "POST":
-#         Taskname=request.form.get("NameTask")
-#         Task=request.form.get("Task")
-#         Condition=request.form.get("Condition")
-#         Username=request.form.get("username")
-#         if validEdit(Username , Taskname):
-#             Task = session.query(TASK).filter(TASK.task == Taskname).first()
-#             Task.task = Taskname
-#             Task.description = Task
-#             Task.Date = None
-#             Task.Time = None
-#             Task.Condition = Condition
-#             db.session.commit()
-#             return redirect(url_for("mainpage"))
-#     return render_template("EditTasks.html", username = username)
