@@ -93,15 +93,15 @@
             <section>
                 <div class="task-box">
                     <div>
-                        {{ t.task }}
+                        {{ t.task }}+<p>  </p>
                     </div>
                     <div>
-                       {{ t.describtion }}
+                       {{ t.describtion }}+<p>  </p>
                     </div>
                     <div>
                         {{ t.Condition }}
                     </div>
-                    <form>
+                    <form action="/EditingCheck" method="post">
                         <input type="hidden" name="task" value="{{ t.task }}">
                         <input type="hidden" name="username" value="{{ t.describtion }}">
                         <input type="hidden" name="username" value="{{ t.Condition }}">

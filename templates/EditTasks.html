@@ -1,0 +1,53 @@
+{% extends "screens.html" %}
+{% block body %}
+<body>
+<body>
+<center>
+    <div class="form-box" style="height:600px">
+    <div class="container">
+    <section>
+    <div class="form-value">
+    <form action="/EditingCheck" method="post">
+        <input value="{{username}}" name="username" id="username" type="hidden">
+        <div class="inputbox">
+            <lable for="">Task Name<lable> 
+            <input type="text" id="TaskName" name="TaskName" value="{{TaskName}}"> 
+        </div>
+        <div class="inputbox">
+            <lable for="">New Task Name<lable> 
+            <input type="text" id="NewTaskName" name="NewTaskName" value="{{TaskName}}"> 
+        </div>
+        <div>
+        <div>
+           describtion: <input name="describtion" id="describtion">
+        </div>
+        <div>
+            <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">
+                <option value="Done">Done</option>
+                <option value="Doing">Doing</option>
+                <option value="Not Done">Not Done</option>
+            </select>
+        </div>
+        </div>
+        <div style="margin-top:25px">
+            <button class="btn" onclick="testfunction()">Edit</button>
+        </div>
+    </form>
+    <form  action="/Backtomainpage" method="POST">
+        <button class="btn">Back to mainpage</button>
+        <input value="{{username}}" name="username" type="hidden">
+    </form>
+    </div>
+    </section>
+    </div>
+    </div>
+    <p id="result" style="color:red">{{a}}</p>
+</center>
+<script>
+    function testfunction(){
+        var TaskName = document.getElementById("TaskName").value;
+        alert("Are you sure that you want to edit Task : "+TaskName);
+    }
+</script>
+</body>
+{% endblock %}

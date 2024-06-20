@@ -193,7 +193,23 @@ def BacktoMainPage():
         return render_template("mainpage.html",username = mainpageusername)
     return redirect("/")   
          
-    
+@app.route("/EditingCheck" , methods=["POST","GET"])
+def editingcheck():
+    if request.method == "POST":
+        username = request.form.get("username")
+        TaskName = request.form.get("task")
+        NewTaskName = request.form.get("NewTaskName")
+        Task = request.form.get("describtion")
+        Condition = request.form.get("condition")
+        if anyData(TaskName,username):
+            Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
+            Edit.task = NewTaskName
+            Edit.describtion = Task
+            Edit.Condition = Condition
+            session.commit()
+            return render_template("EditTasks.html", username = username , a = Task , TaskName = TaskName)
+        else:
+            return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName)
            
 
 if __name__ == "__main__":
