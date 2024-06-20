@@ -200,6 +200,8 @@ def editingcheck():
         NewTaskName = request.form.get("NewTaskName")
         Task = request.form.get("describtion")
         Condition = request.form.get("condition")
+        if uniqueData(NewTaskName,username):
+            return render_template("EditTasks.html", username = username , a = "There is a Task with this name please select anothername" , TaskName = TaskName , Task = Task)
         if anyData(TaskName,username):
             Edit = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName).first()
             Edit.task = NewTaskName
@@ -208,7 +210,6 @@ def editingcheck():
             session.commit()
             TaskName = NewTaskName
             return render_template("EditTasks.html", username = username , a = "" , TaskName = TaskName , Task = Task)
-        return render_template("EditTasks.html", username = username , a = "There is no Task with This Name" , TaskName = TaskName , Task = Task)
     return redirect("/")
            
 
