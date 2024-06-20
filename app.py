@@ -3,8 +3,6 @@ from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import re
-import os
-from IPython.display import HTML
 
 app = Flask(__name__)
 
@@ -33,46 +31,15 @@ class TASK(Base):
     __tablename__ = "tasks"
 
     task = Column("task", String, primary_key=True)
-    description = Column("describtion", String)
+    describtion = Column("describtion", String)
     owner = Column("owner",String)
     Condition=Column("Condition",String)
 
     def __init__(self, task, describtion, owner, Condition):
         self.task = task
-        self.description = describtion
+        self.describtion = describtion
         self.owner = owner
         self.Condition = Condition
-    
-    
-
-    # def __repr__(self):
-    #      html= f"""
-    #      <table border="1">
-    #           <tr>
-    #               <th>Task</th>
-    #               <th>Description</th>
-    #               <th>Owner</th>
-    #               <th>Date</th>
-    #               <th>Time</th>
-    #               <th>Condition</th>
-    #           </tr>
-    #           <tr>
-    #               <td>{self.task}</td>
-    #               <td>{self.description}</td>
-    #               <td>{self.owner}</td>
-    #               <td>{self.Date}</td>
-    #               <td>{self.Time}</td>
-    #               <td>{self.Condition}</td>
-    #           </tr>
-    #      </table>
-    #      """
-    #      return (html)
-
-  
-         
-
-    # def __repr__(self):
-    #       return f"({self.task}{self.description} {self.owner} {self.Date} {self.Time} {self.Condition})"
      
     
 engine = create_engine("sqlite:///users.db", echo=True)
@@ -156,10 +123,12 @@ def mainpage():
     if "username" in temp:
         username = temp["username"]
         temp.clear()
-        return render_template("mainpage.html", username = username)
+        task = session.query(TASK).filter(TASK.owner == username).all()
+        return render_template("mainpage.html", username = username, task = task)
     if request.method == "POST":
         action = request.form.get("x")
         username = request.form.get("username")
+        task = session.query(TASK).filter(TASK.owner == username).all()
         if action == "add":
             return render_template("Task.html", username = username)
         elif action == "change":
@@ -169,7 +138,7 @@ def mainpage():
         elif action == "deleteTask":
             return render_template("DeleteTask.html", username = username)
         else:
-            return render_template("mainpage.html", username = username)
+            return render_template("mainpage.html", username = username, task = task)
     return redirect("/")
 
         
@@ -193,24 +162,26 @@ def changepassword():
 @app.route("/Task", methods=["POST","GET"])
 def Task():
     if request.method == "POST":
-         task=request.form.get("TaskName")
-         description = request.form.get("Task")
-         owner = request.form.get("Username")
-         Condition=request.form.get("condition")
-    if ValidTaskAdd(task,owner):
-         return render_template("Task.html" , invalid = "There is a Task with this name. please set another name for your new task")  
-    else:
+        task=request.form.get("TaskName")
+        description = request.form.get("Task")
+        owner = request.form.get("Username")
+        Condition=request.form.get("condition")
+        if ValidTaskAdd(task,owner):
+            return render_template("Task.html" , invalid = "There is a Task with this name. please set another name for your new task")  
         task = TASK(task, description, owner,Condition)
         session.add(task)
         session.commit()
-        return render_template("mainpage.html",username = owner)
+        task = session.query(TASK).filter(TASK.owner == owner).all()
+        return render_template("mainpage.html",username = owner, task = task)
+    return redirect("/")
        
      
 @app.route("/Backtomainpage" , methods = ["POST","GET"])
 def BacktoMainPage():
     if request.method == "POST":
         mainpageusername = request.form.get("username")
-        return render_template("mainpage.html",username = mainpageusername)   
+        return render_template("mainpage.html",username = mainpageusername)
+    return redirect("/")   
          
 
 @app.route("/ShowTask", methods=["POST","GET"])
@@ -220,6 +191,7 @@ def ShowTask():
         result = session.query(TASK).filter(TASK.owner == ShowTask).all()
         result =" ".join(map(str, result))
         return render_template("ShowTask.html", rows=result,username=ShowTask)
+    return redirect("/")
     
 
 @app.route("/deleteTask", methods=["POST","GET"])
