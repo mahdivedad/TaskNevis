@@ -3,13 +3,10 @@
 {% block body %}
 
     <body> 
-        {% if invalid %}
-        invalid username or password
-        {% endif %}
         <section>
             <div class="form-box">
                 <div class="form-value">
-                    <form action="login" method="post">
+                    <form action="/login" method="post">
                         <h2>Login</h2>
                         <div class="inputbox">
                             <input type="text" name="username" required>
@@ -25,6 +22,11 @@
                             <p>Don't have a account <a href="register">Register</a></p>
                         </div>
                     </form>
+                    <center>
+                    {% if invalid %}
+                    <p style="color: red; margin-top: 20px; padding-bottom: 20px;">invalid username or password</p>
+                    {% endif %}
+                    </center>
                 </div>
             </div>
         </section>
