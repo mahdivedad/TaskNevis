@@ -91,34 +91,42 @@
         {% for t in task %}
         <center>
             <section>
-                <div class="task-box">
-                    <div>
-                        {{ t.task }}+<p>  </p>
+                <div style="border: 1px solid black;margin-top:20px;border-radius:20px;width:60%">
+                    <div style="margin-top:15px">
+                        <b><span>Task Name : </span></b>{{ t.task }}
                     </div>
+                </br>
                     <div>
-                       {{ t.describtion }}+<p>  </p>
+                       <b><span>Task : </span></b>{{ t.describtion }}<br>
                     </div>
+                </br>
                     <div>
-                        {{ t.Condition }}
+                        <b><span>Condition : </span></b>{{ t.Condition }}<br>
                     </div>
+                </br>
+                    <div>
                     <form action="/mainpage" method="post">
                         <input type="hidden" value="{{username}}" name="username" id="username">
                         <input type="hidden" name="task" value="{{ t.task }}">
                         <input type="hidden" name="describtion" value="{{ t.describtion }}">
                         <input type="hidden" name="condition" value="{{ t.Condition }}">
                         <input value="editTask" name="x" type="hidden">
-                    <button type="submit">Change</button>
+                    <button type="submit" class="btn">Change</button>
                     </form>
+                    </div>
+                </br>
+                    <div  style="margin-top:-30px">
                     <form action="/mainpage" method="post">
                         <input type="hidden" name="username" value="{{ username }}">
                         <input type="hidden" name="task" value="{{ t.task }}">
                         <input type="hidden" name="x" value="deleteTask">
-                        <button type="submit">delete</button>
+                        <button type="submit" class="btn">delete</button>
                     </form>
-                
+                    </div>
                 </div>
             </section>
         </center>
         {% endfor %}
+    </div>
 </body>
 </html>
