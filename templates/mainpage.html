@@ -107,8 +107,10 @@
                         <input type="hidden" name="username" value="{{ t.Condition }}">
                     <button type="submit">Change</button>
                     </form>
-                    <form>
+                    <form action="/mainpage" method="post">
+                        <input type="hidden" name="username" value="{{ username }}">
                         <input type="hidden" name="task" value="{{ t.task }}">
+                        <input type="hidden" name="x" value="deleteTask">
                         <button type="submit">delete</button>
                     </form>
                 

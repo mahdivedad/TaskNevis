@@ -82,6 +82,13 @@ def anyData(TaskName,username):
         return True
     return False
 
+def deleteTask(Taskname,username):
+        if anyData(Taskname,username):
+            result = session.query(TASK).filter(TASK.task == Taskname).first()
+            session.delete(result)
+            session.commit()
+
+
 @app.route("/")
 def index():
     return redirect(url_for("login"))
@@ -136,7 +143,10 @@ def mainpage():
         elif action == "editTask":
             return render_template("EditTasks.html", username = username)
         elif action == "deleteTask":
-            return render_template("DeleteTask.html", username = username)
+            Taskname = request.form.get("task")
+            deleteTask(Taskname,username)
+            task = session.query(TASK).filter(TASK.owner == username).all()
+            return render_template("mainpage.html", username = username, task = task)
         else:
             return render_template("mainpage.html", username = username, task = task)
     return redirect("/")
@@ -193,19 +203,6 @@ def ShowTask():
         return render_template("ShowTask.html", rows=result,username=ShowTask)
     return redirect("/")
     
-
-@app.route("/deleteTask", methods=["POST","GET"])
-def deleteTask():
-    if request.method == "POST":
-        username = request.form.get("username")
-        TaskName = request.form.get("taskname")
-        if anyData(TaskName,username):
-            result = session.query(TASK).filter(TASK.task == TaskName).first()
-            session.delete(result)
-            session.commit()
-            return render_template("DeleteTask.html", username = username , invalid="Task deleted successfully")
-        else:
-            return render_template("DeleteTask.html", username = username,invalid="There is no Task with this name")
            
 
 if __name__ == "__main__":
