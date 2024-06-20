@@ -193,15 +193,6 @@ def BacktoMainPage():
         return render_template("mainpage.html",username = mainpageusername)
     return redirect("/")   
          
-
-@app.route("/ShowTask", methods=["POST","GET"])
-def ShowTask():
-    if request.method == "POST":
-        ShowTask=request.form.get("ShowTask")
-        result = session.query(TASK).filter(TASK.owner == ShowTask).all()
-        result =" ".join(map(str, result))
-        return render_template("ShowTask.html", rows=result,username=ShowTask)
-    return redirect("/")
     
            
 
