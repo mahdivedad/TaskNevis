@@ -40,6 +40,13 @@
                         <p style="color:red;">Please enter valid email</p>
                          </center>
                     </div>
+                    {% endif %}
+                    {% if inuseemail %}
+                    <div>
+                        <center>
+                        <p style="color:red;">This email is already in use</p>
+                        </center>
+                    </div>
                     {% endif %}   
                 </div>
             </div>

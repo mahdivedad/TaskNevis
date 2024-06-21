@@ -55,6 +55,12 @@ def validuser(input):
         return True
     return False
 
+def inuseemail(email):
+    result = session.query(USER).filter(USER.email == email)
+    for r in result:
+        return True
+    return False
+
 def ValidTaskAdd(task,owner):
     result = session.query(TASK).filter(TASK.task == task and TASK.owner == owner)
     for r in result:
@@ -107,6 +113,8 @@ def register():
             return render_template("register.html", invalidemail = True)
         if validuser(username):
             return render_template("register.html", invaliduser = True)
+        if inuseemail(email):
+            return render_template("register.html", inuseemail=True)
         user = USER(username, email, password)
         session.add(user)
         session.commit()
