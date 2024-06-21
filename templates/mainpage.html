@@ -82,15 +82,15 @@
         <center>
             <section>
                 <div style="border: 1px solid black;margin-top:20px;border-radius:20px;width:60%">
-                    <div style="margin-top:15px">
+                    <div style="margin-top:15px;width:80%">
                         <b><span>Task Name : </span></b>{{ t.task }}
                     </div>
                 </br>
-                    <div>
+                    <div style="width:80%">
                        <b><span>Task : </span></b>{{ t.describtion }}<br>
                     </div>
                 </br>
-                    <div>
+                    <div style="width:80%">
                         <b><span>Condition : </span></b>{{ t.Condition }}<br>
                     </div>
                 </br>
@@ -101,7 +101,7 @@
                         <input type="hidden" name="describtion" value="{{ t.describtion }}">
                         <input type="hidden" name="condition" value="{{ t.Condition }}">
                         <input value="editTask" name="x" type="hidden">
-                    <button type="submit" class="btn">Change</button>
+                        <button type="submit" class="btn">Change</button>
                     </form>
                     </div>
                 </br>
