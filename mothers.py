@@ -3,14 +3,9 @@ from sqlalchemy import create_engine, Column, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from config import Add
+import re
 
 Base = declarative_base()
-
-engine = create_engine(Add, echo=True)
-Base.metadata.create_all(bind=engine)
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 class USER(Base):
 
@@ -39,3 +34,9 @@ class TASK(Base):
         self.describtion = describtion
         self.owner = owner
         self.Condition = Condition
+
+engine = create_engine(Add, echo=True)
+Base.metadata.create_all(bind=engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()

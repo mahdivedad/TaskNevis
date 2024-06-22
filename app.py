@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from mothers import USER,TASK,Base,engine,session
 from Functions import validemail,validuser,inuseemail,ValidTaskAdd,validlogin,validEdit,anyData,uniqueData,deleteTask
 from config import Add
+import re
 
 app = Flask(__name__)
 
