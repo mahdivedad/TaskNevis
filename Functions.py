@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine, Column, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from mothers import USER,TASK,Base,engine,session
+from models import USER,TASK,Base,engine,session
 from config import Add
 import re
 
