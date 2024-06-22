@@ -86,8 +86,12 @@
                         <b><span>Task Name : </span></b>{{ t.task }}
                     </div>
                 </br>
-                    <div style="width:80%">
-                       <b><span>Task : </span></b>{{ t.describtion }}<br>
+                    <div>
+                        <b><span>Task : </span></b>
+                    </div>
+                    <br>
+                    <div style="width:80%;max-width:80%">
+                       <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 1px solid #c2c0bd;;border-radius: 5px" readonly>{{ t.describtion }}</textarea><br>
                     </div>
                 </br>
                     <div style="width:80%">
