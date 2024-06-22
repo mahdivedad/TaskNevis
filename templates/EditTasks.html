@@ -13,11 +13,11 @@
                 <input type="hidden" id="TaskName" name="TaskName" value="{{TaskName}}"> 
                 <div class="inputbox">
                     <lable for="">New Task Name<lable> 
-                    <input type="text" id="NewTaskName" name="NewTaskName" value="{{TaskName}}"> 
+                    <input maxlength="255" required type="text" id="NewTaskName" name="NewTaskName" value="{{TaskName}}"> 
                 </div>
                 <div>
                 <div>
-                    <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="describtion" id="describtion" placeholder="Task">{{Task}}</textarea>
+                    <textarea maxlength="255" style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" required name="describtion" id="describtion" placeholder="Task">{{Task}}</textarea>
                 </div>
                 <div>
                     <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">

@@ -9,13 +9,13 @@
         <section>
         <div class="form-value">
             <form action="/Task" method="post" id="form">
-                <input type="hidden" value={{username}} id="Username" name="Username">
+                <input maxlength="255" type="hidden" value={{username}} id="Username" name="Username">
                 <div class="inputbox">
                     <input id="TaskName" name="TaskName">
                     <label for="">Task Name</label>
                 </div>
                 <div>
-                    <textarea style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="Task" id="Task" placeholder="Task"></textarea>
+                    <textarea maxlength="255" style="width:310px;height:170px;max-width:310px;max-height:170px;border: 2px solid black;border-radius: 5px" name="Task" id="Task" placeholder="Task"></textarea>
                 </div>
                 <div>
                     <select  id="conditionSelect" name="condition" style="width: 100%; height: 50px;border: 2px solid black;border-radius: 5px">
