@@ -2,106 +2,26 @@ from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine, Column, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import re
+from mothers import USER,TASK,Base,engine,session
+from Functions import validemail,validuser,inuseemail,ValidTaskAdd,validlogin,validEdit,anyData,uniqueData,deleteTask
+from config import Add
 
 app = Flask(__name__)
 
-Base = declarative_base()
-
 temp = {}
 
-class USER(Base):
+Base = declarative_base()
 
-    __tablename__ = "users"
-
-    username = Column("username", String, primary_key=True)
-    email = Column("email", String)
-    password = Column("password", String)
-
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
-
-class TASK(Base):
-
-    __tablename__ = "tasks"
-
-    task = Column("task", String, primary_key=True)
-    describtion = Column("describtion", String)
-    owner = Column("owner",String)
-    Condition=Column("Condition",String)
-
-    def __init__(self, task, describtion, owner, Condition):
-        self.task = task
-        self.describtion = describtion
-        self.owner = owner
-        self.Condition = Condition
-     
-    
-engine = create_engine("sqlite:///users.db", echo=True)
+engine = create_engine(Add, echo=True)
 Base.metadata.create_all(bind=engine)
 
 Session = sessionmaker(bind=engine)
 session = Session()
-
-
-def validemail(input):
-    return bool(re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',input))
-
-def validuser(input):
-    result = session.query(USER).filter(USER.username == input)
-    for r in result:
-        return True
-    return False
-
-def inuseemail(email):
-    result = session.query(USER).filter(USER.email == email)
-    for r in result:
-        return True
-    return False
-
-def ValidTaskAdd(task,owner):
-    result = session.query(TASK).filter(TASK.task == task and TASK.owner == owner)
-    for r in result:
-        return True
-    return False
-
-def validlogin(username , password):
-    result = session.query(USER).filter(USER.username == username , USER.password == password)
-    for r in result:
-        return True
-    return False
-
-def validEdit(username , Taskname):
-    result= session.query(TASK).filter(TASK.owner == username , TASK.task == Taskname)
-    for r in result:
-        return True
-    return False
-
-def anyData(TaskName,username):
-    result= session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName)
-    for r in result:
-        return True
-    return False
-
-def uniqueData(TaskName,username):
-    result = session.query(TASK).filter(TASK.owner == username , TASK.task == TaskName)
-    for r in result:
-        return True
-    return False
-
-def deleteTask(Taskname,username):
-    if anyData(Taskname,username):
-        result = session.query(TASK).filter(TASK.task == Taskname).first()
-        session.delete(result)
-        session.commit()
-
+                
 
 @app.route("/")
 def index():
     return redirect(url_for("login"))
-
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -163,8 +83,7 @@ def mainpage():
         task = session.query(TASK).filter(TASK.owner == username).all()
         return render_template("mainpage.html", username = username, task = task)
     return redirect("/")
-        
- 
+
 @app.route("/changepassword", methods=["GET", "POST"])
 def changepassword():
     if request.method == "POST":
@@ -179,7 +98,8 @@ def changepassword():
         return render_template("changepassword.html", invalid = True, username = username)
     return redirect("/")
 
- 
+
+
 @app.route("/Task", methods=["POST","GET"])
 def Task():
     if request.method == "POST":
@@ -195,8 +115,8 @@ def Task():
         task = session.query(TASK).filter(TASK.owner == owner).all()
         return render_template("mainpage.html",username = owner, task = task)
     return redirect("/")
-         
-         
+
+
 @app.route("/EditingCheck" , methods=["POST","GET"])
 def editingcheck():
     if request.method == "POST":
@@ -216,9 +136,6 @@ def editingcheck():
             TaskName = NewTaskName
             return render_template("EditTasks.html", username = username , a = "edited successfully!" , TaskName = TaskName , Task = Task)
     return redirect("/")
-           
 
 if __name__ == "__main__":
     app.run(debug=False)
-
-    
